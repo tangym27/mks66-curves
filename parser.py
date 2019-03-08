@@ -40,7 +40,7 @@ The file follows the following format:
 
 See the file script for an example of the file format
 """
-ARG_COMMANDS = [ 'line', 'scale', 'move', 'rotate', 'save' ]
+ARG_COMMANDS = [ 'line', 'scale', 'move', 'rotate', 'save'  , 'hermite' , 'bezier']
 
 def parse_file( fname, edges, transform, screen, color ):
 
@@ -73,8 +73,11 @@ def parse_file( fname, edges, transform, screen, color ):
             t = make_translate(float(args[0]), float(args[1]), float(args[2]))
             matrix_mult(t, transform)
         elif line == 'circle':
-
-
+            add_circle( edges, cx, cy, cz, r, step ):
+        elif line == 'bezier'
+            add_curve( edges, x0, y0, x1, y1, x2, y2, x3, y3, step, line )
+        elif line == 'hermite':
+            add_curve( edges, x0, y0, x1, y1, x2, y2, x3, y3, step, line )
         elif line == 'rotate':
             #print 'ROTATE\t' + str(args)
             theta = float(args[1]) * (math.pi / 180)

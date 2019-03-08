@@ -102,7 +102,7 @@ def draw_line( x0, y0, x1, y1, screen, color ):
             #end octant 2 while
             plot(screen, color, x1, y1)
         #end octant 2
-#Abcdefgh
+
         #octant 7
         else:
             d = A/2 - B;
