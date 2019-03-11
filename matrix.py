@@ -8,24 +8,27 @@ z0  z1  ... zn
 1  1        1
 """
 import math
-# director for stuyhacks,
+
 def make_bezier():
-    pass
+    t = [[-1, 3, -3, 1], [3, -6, 3, 0] , [-3, 3, 0, 0], [1,0,0,0]]
+    return t
+
 
 def make_hermite():
-    t = [[2,-3,0,1], [-3,3,-2,-1], [0,0,1,0], [1,0,0,0]]
-    pass
+    t = [[2,-2,1,1], [-3,3,-2,-1], [0,0,1,0], [1,0,0,0]]
+    return t
 
 
 def generate_curve_coefs( p0, p1, p2, p3, t ):
-    a = -p0 + 3*p1 - 3*p2 + p3
-    b = 3*p0 - 6*p1 + 3*p2
-    c = -3*p0 + 3*p1
-    d = p0
-    print a
-    print b
-    print c
-    print d
+    curve = [[p0,p1, p2, p3]]
+    if (t=="hermite"):
+        mat = make_hermite()
+    else:
+        mat = make_bezier()
+
+    matrix_mult(mat, curve)
+    return curve
+
 
 def make_translate( x, y, z ):
     t = new_matrix()

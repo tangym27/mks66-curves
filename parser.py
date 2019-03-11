@@ -40,7 +40,7 @@ The file follows the following format:
 
 See the file script for an example of the file format
 """
-ARG_COMMANDS = [ 'line', 'scale', 'move', 'rotate', 'save'  , 'hermite' , 'bezier']
+ARG_COMMANDS = [ 'line', 'scale', 'move', 'rotate', 'save'  ]
 
 def parse_file( fname, edges, transform, screen, color ):
 
@@ -55,7 +55,6 @@ def parse_file( fname, edges, transform, screen, color ):
         if line in ARG_COMMANDS:
             c+= 1
             args = lines[c].strip().split(' ')
-
         if line == 'line':
             #print 'LINE\t' + str(args)
 
@@ -73,13 +72,18 @@ def parse_file( fname, edges, transform, screen, color ):
             t = make_translate(float(args[0]), float(args[1]), float(args[2]))
             matrix_mult(t, transform)
         elif line == 'circle':
-            add_circle( edges, cx, cy, cz, r, step ):
-        elif line == 'bezier'
-            add_curve( edges, x0, y0, x1, y1, x2, y2, x3, y3, step, line )
+            args = lines[c+1].strip().split(' ')
+        #    add_circle( edges, float(args[0]), float(args[1]), float(args[2]), float(args[3]), .0001 )
+
+            add_circle( edges, float(args[0]), float(args[1]), float(args[2]), float(args[3]), .001 )
         elif line == 'hermite':
-            add_curve( edges, x0, y0, x1, y1, x2, y2, x3, y3, step, line )
+            args = lines[c+1].strip().split(' ')
+            add_curve( edges, float(args[0]), float(args[1]), float(args[2]), float(args[3]), float(args[4]), float(args[5]), float(args[6]), float(args[7]), .0001, 0 )
+        elif line == 'bezier':
+            args = lines[c+1].strip().split(' ')
+            add_curve( edges, float(args[0]), float(args[1]), float(args[2]), float(args[3]), float(args[4]), float(args[5]), float(args[6]), float(args[7]), .0001, 1 )
         elif line == 'rotate':
-            #print 'ROTATE\t' + str(args)
+            print 'ROTATE\t' + str(args)
             theta = float(args[1]) * (math.pi / 180)
 
             if args[0] == 'x':
