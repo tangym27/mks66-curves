@@ -56,8 +56,6 @@ def parse_file( fname, edges, transform, screen, color ):
             c+= 1
             args = lines[c].strip().split(' ')
         if line == 'line':
-            #print 'LINE\t' + str(args)
-
             add_edge( edges,
                       float(args[0]), float(args[1]), float(args[2]),
                       float(args[3]), float(args[4]), float(args[5]) )
@@ -78,10 +76,10 @@ def parse_file( fname, edges, transform, screen, color ):
             add_circle( edges, float(args[0]), float(args[1]), float(args[2]), float(args[3]), .001 )
         elif line == 'hermite':
             args = lines[c+1].strip().split(' ')
-            add_curve( edges, float(args[0]), float(args[1]), float(args[2]), float(args[3]), float(args[4]), float(args[5]), float(args[6]), float(args[7]), .0001, 0 )
+            add_curve( edges, float(args[0]), float(args[1]), float(args[2]), float(args[3]), float(args[4]), float(args[5]), float(args[6]), float(args[7]), .0001, "hermite" )
         elif line == 'bezier':
             args = lines[c+1].strip().split(' ')
-            add_curve( edges, float(args[0]), float(args[1]), float(args[2]), float(args[3]), float(args[4]), float(args[5]), float(args[6]), float(args[7]), .0001, 1 )
+            add_curve( edges, float(args[0]), float(args[1]), float(args[2]), float(args[3]), float(args[4]), float(args[5]), float(args[6]), float(args[7]), .0001, "bezier" )
         elif line == 'rotate':
             print 'ROTATE\t' + str(args)
             theta = float(args[1]) * (math.pi / 180)

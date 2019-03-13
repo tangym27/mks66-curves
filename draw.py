@@ -8,7 +8,7 @@ def add_circle( points, cx, cy, cz, r, step ):
     t = 0
     x0  = cx + r
     y0 = cy
-    while(t <= 1 + step):
+    while(t <= 1 ):
         theta = 2 * math.pi * t
         x = r * math.cos(theta) + cx
         y = r * math.sin(theta) + cy
@@ -18,24 +18,20 @@ def add_circle( points, cx, cy, cz, r, step ):
         t += step
 
 def add_curve( points, x0, y0, x1, y1, x2, y2, x3, y3, step, curve_type ):
-
-    prevX = x0
-    prevY = y0
+    Xs = generate_curve_coefs(x0, x1, x2, x3, curve_type)
+    Ys = generate_curve_coefs(y0, y1, y2, y3, curve_type)
     t = 0
-    # hermite
-    if curve_type == "hermite":
-        Xs = generate_curve_coefs(x0,x1,x2,x3,0)
-        Ys = generate_curve_coefs(y0,y1,y2,y3,0)
-    else:
-        Xs = generate_curve_coefs(x0,x1,x2,x3,1)
-        Ys = generate_curve_coefs(y0,y1,y2,y3,1)
-    while (t<1+step):
-        x = Xs[0][0]*t*t*t + Xs[0][1]*t*t + Xs[0][2]*t + Xs[0][3]
-        y = Ys[0][0]*t*t*t + Ys[0][1]*t*t + Ys[0][2]*t + Ys[0][3]
-        add_edge(points, prevX, prevY, 0, x, y, 0)
-        prevX = x
-        prevY = y
+    # i = 0
+    x0 = Xs[0][0] * t**3 + Xs[0][1] * t**2 + Xs[0][2] * t + Xs[0][3]
+    y0 = Ys[0][0] * t**3 + Ys[0][1] * t**2 + Ys[0][2] * t + Ys[0][3]
+    while(t < (1+step)):
+        x1 = Xs[0][0] * t**3 + Xs[0][1] * t**2 + Xs[0][2] * t + Xs[0][3]
+        y1 = Ys[0][0] * t**3 + Ys[0][1] * t**2 + Ys[0][2] * t + Ys[0][3]
+        add_edge(points, x0, y0, 0, x1, y1, 0)
+        x0 = x1
+        y0 = y1
         t += step
+        # i += 1
 
 
 
